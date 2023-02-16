@@ -1,6 +1,10 @@
 import requests 
+import os
 from PyQt5.QtWidgets import QMessageBox
+from dotenv import load_dotenv
 # -24.058906201692693, -46.84559548727812
+load_dotenv()
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 def createMsg(type, text):
     msg = QMessageBox()
@@ -18,7 +22,7 @@ def createMsg(type, text):
         return msg
 
 def get_latLon(c):
-    url =  f"http://api.openweathermap.org/geo/1.0/direct?q={c}&&appid=3f008eaded8c742da704e2b081283f7b"
+    url =  f"http://api.openweathermap.org/geo/1.0/direct?q={c}&&appid={SECRET_KEY}"
     response = requests.get(url)
     response = response.json()
     lat = response[0]['lat']
